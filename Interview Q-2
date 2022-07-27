@@ -1,0 +1,300 @@
+Practice Azure Devops CICD build pipeline
+
+Explain complete azure CICD build pipeline?
+
+How to reduce the time of build in azure devops pipeline?? How to optimize the cicd pipeline for faster build ?
+
+> By using pipeline templates so that it will be easier to pass build parameters
+> By using task group in azure so that we don’t have to write same set of tasks multiple times and pipeline will run faster
+> by using incremental build in azure, we can ramp up the build process so that everytime pipeline runs, it wont start from scratch.
+> Pipeline caching can help reduce build time by allowing the outputs or downloaded dependencies from one run to be reused in later runs, thereby reducing or avoiding the cost to recreate or redownload the same files again.
+
+What is pipeline caching in Azure Devops?
+>Pipeline caching can help reduce build time by allowing the outputs or downloaded dependencies from one run to be reused in later runs, thereby reducing or avoiding the cost to recreate or redownload the same files again. Caching is especially useful in scenarios where the same dependencies are downloaded over and over at the start of each run.
+
+By using the Cache@2 task we can specify the packages that we want to cache for the next build run.
+
+
+How to monitor the pipeline task that is running in azure devops??
+>>https://docs.microsoft.com/en-us/azure/azure-monitor/app/continuous-monitoring
+
+> using azure Devops tool.
+
+How to install Sonarqube in vm?? What is the architecture of sonarqube ?
+
+> 
+
+the SonarQube Platform is made of 4 components: 
+1.	SonarQube Server starting 3 main processes: 
+Web Server for developers,
+Search Server based on Elasticsearch
+Compute Engine Server in charge of processing code analysis reports
+2.	SonarQube Database to store:
+the configuration of the SonarQube instance (security, plugins settings, etc.)
+the quality snapshots of projects, views, etc
+3.	Multiple SonarQube Plugins installed on the server, possibly including language, SCM, integration, authentication, and governance plugins
+4.	SonarScanners running on your Build / Continuous Integration Servers to analyze project
+
+What is the function of service connection in devops?
+
+What is the difference between build and release pipelines??
+
+What are application security groups in azure??
+>Application security groups enable you to configure network security as a natural extension of an application's structure, allowing you to group virtual machines and define network security policies based on those groups
+
+To which resources can you attach a NSG in azure?
+>NSGs can be associated with subnets or individual virtual machine instances within that subnet. When an NSG is associated with a subnet, the ACL rules apply to all Virtual Machine instances of that subnet.
+
+What is azure ddos protection?
+
+
+Have you used WAF or Web Application Firewall?
+>Azure WAF is a web application firewall that helps protect your web applications from common threats such as SQL injection, cross-site scripting, and other web exploits. You can define a WAF policy consisting of a combination of custom and managed rules to control access to your web applications.
+
+
+What are azure web service rules?
+>Web Role is a Cloud Service role in Azure that is configured and customized to run web applications developed on programming languages/technologies that are supported by Internet Information Services (IIS), such as ASP.NET, PHP
+
+Worker Role is any role in Azure that runs applications and services level tasks, which generally do not require IIS. In Worker Roles, IIS is not installed by default. They are mainly used to perform supporting background processes along with Web Roles and do tasks such as automatically compressing uploaded images, run scripts when something changes in the database, get new messages from queue and process and more.
+
+The main difference between the two is that:
+●	a Web Role automatically deploys and hosts your app through IIS
+●	a Worker Role does not use IIS and runs your app standalone
+
+
+What are web roles and worker roles in azure?
+> Look above
+
+What are different kinds of storages offered in azure?
+>Azure File Share
+> Blob Storage
+> Table Storage
+> Queue Storage
+What are message queue services in azure?
+
+Practice terraform code
+
+How to pass a variable value using terraform command in the command line?
+> terraform apply -var=”var_name=var_value”
+
+What are the conditions in terraform?
+> condition ? true_val : false_val
+If condition is true then result is true_val, else result is false_val
+
+
+What are meta arguments in terraform?
+> Meta-arguments come in handy in situations like creating resources in the same cloud provider, but in different regions, or when creating multiple identical resources with different names, or when we have to declare implicit dependencies in places where Terraform is not able to identify the dependency itself.
+Different types of meta-arguments
+●	depends_on
+●	count
+●	for_each
+●	provider
+●	Lifecycle
+●	Resource Provider
+depends_on meta-argument to explicitly define the dependency.
+count requires a whole number and will then create that resource that number of times.
+for_each meta argument accepts a map or set of strings. Terraform will create one instance of that resource for each member of that map or set
+provider meta-argument specifies which provider to be used for a resource.
+The lifecycle meta-argument defines the lifecycle for the resource. 
+	Three types:
+	Create_before_destroy
+	Prevent_destroy
+	ignore_changes
+
+What is the lifecycle in terraform?
+>The lifecycle meta-argument defines the lifecycle for the resource. 
+	4 types:
+	Create_before_destroy
+	Prevent_destroy
+	Ignore_changes
+replace_triggered_by
+	
+Create_before_destroy : The create_before_destroy meta-argument changes this behavior so that the new replacement object is created first, and the prior object is destroyed after the replacement is created.
+
+resource "azurerm_resource_group" "example" {
+  # ...
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+
+
+
+Prevent_destroy : This meta-argument, when set to true, will cause Terraform to reject with an error any plan that would destroy the infrastructure object associated with the resource, as long as the argument remains present in the configuration.
+
+
+Ignore_changes : The ignore_changes feature is intended to be used when a resource is created with references to data that may change in the future, but should not affect said resource after its creation.
+
+Replace_triggered_by : Replaces the resource when any of the referenced items change. Supply a list of expressions referencing managed resources, instances, or instance attributes. When used in a resource that uses count or for_each, you can use count.index or each.key in the expression to reference specific instances of other resources that are configured with the same count or collection.
+
+
+What are terraform provisioners ?
+> File provisioners> copy files from local host to remote resource
+Local-exec > run tasks in local host terminal
+Remote-exec > execute tasks in remote resource
+
+Learn jenkins basics
+
+What are configmaps in k8s?
+
+Write configmaps, deployments, services, ingress?
+
+What are liveness and readiness probes in kubernetes?
+
+How do you define liveness and readiness probes inside deployment?
+>in k8s deployments, under spec> containers> use below code
+The kubelet uses liveness probes to know when to restart a container.
+The kubelet uses readiness probes to know when a container is ready to start accepting traffic. 
+Liveness>>
+   livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 5
+      periodSeconds: 5
+Readiness>>
+readinessProbe:
+  exec:
+    command:
+    - cat
+    - /tmp/healthy
+  initialDelaySeconds: 5
+  periodSeconds: 5
+
+
+How to rollback faulty deployments?
+> kubectl rollout undo deployment <deploment_name> [for undoing latest deployment]
+Kubectl rollout undo <deployment_name> –to-revision <revision_number>
+
+How do you expose your application to the outside internet?
+
+How many types of volumes does docker have?
+>1. Volumes (managed by docker)
+2. Bind-mounts (need to create explicitly, need to manage)
+
+Write a docker command to mount a volume from host to container?
+
+
+Learn the basics of ansible ?
+
+
+
+Features of Azure Application Gateway >>>
+
+Being in layer 7 it has some features, like 
+-	url redirection/routing
+-	url rewriting/request rewriting
+-	ssl/tls termination/offload
+-	session affinity
+-	connection draining
+
+Load Balancer works on Layer 4 so it won't work on HTTPS. It only works on tcp and udp.
+
+Basic load balancer can support 300 instances
+Standard Load Balancer can support 1000 instances
+
+
+Ansible is an agent less so less overhead and less management.
+Ansibles have modules, they are the smallest unit of work. Any small tasks are carried out by modules,but you can run them in order / sequentially in ansible playbooks by putting relevant modules in a single file.
+
+
+Kaniko replaces docker as the engine to create containers inside k8s.
+
+How to reduce docker file size??
+
+Method 1: Use Minimal Base Images. ...
+Method 2: Use Docker Multistage Builds. ...
+Method 3: Minimize the Number of Layers. ...
+Method 4: Understanding Caching. ...
+Method 5: Use Dockerignore. ...
+Method 6: Keep Application Data Elsewhere.
+
+Different kinds of controller manager?
+ 
+
+Ingress HAproxy
+
+Install:
+1.	helm repo add haproxytech https://haproxytech.github.io/helm-charts
+2.	helm repo update
+3.	 helm search repo haproxytech/
+4.	helm install my-release haproxytech/<chart>
+
+Where have you used configmaps?
+Which one is a better replica set or deployment and why?
+How to secure a Front end, DB and API server?
+How to run unit tests in ADO?
+How can you store the test results in a stateful permanent manner?
+How to host the application on your own public ip?
+How to service connect using kubeconfig with a cluster not in azure?
+What dotnet version are you using?
+How did you move from dotnet 5 into 6?
+Suppose you are not using a firewall then how can you make sure your API calls are not misused?
+How to make sure a pipeline fails in a unit test or code coverage doesn't meet the given criteria?
+What is a probe pipeline?
+What is the azure landing zone?
+Can you integrate any other CI solution and CD into Azure?
+What is octopus merge?
+What is the primary difference between fast forward and recursive merge?
+How can you deploy blue green without namespace?
+If you rollback then how can you fix the newest version and push that again?
+What is the default image name in docker?
+Kubectl command to list pending cronjobs?
+
+Pipeline 
+
+—----------------------------------------------------------------------------------------
+
+Why do we need a fault domain and update domain?
+
+When you are creating vnets, how will you plan your subnetting ?
+
+When you see that your sas token has been breached/gets accessed by some other person, how will you revoke that/what you will do?
+
+If you want to use terraform within a VM to provision multiple resources in azure cloud, tell me about which authentication method you will choose, either Managed Identity or Service Principal and tell me the reason behind it?
+
+If your container crashed in Azure App service , then how would you know the reason behind it/ how would you identify the same/ what would be your approach for troubleshooting? (answer is use Azure Diagnostics )
+
+How will you architect an application in azure devops and tell me about the entire CI/CD process?
+
+ When you are deploying to the production, what deployment strategies do you use?
+{ans would be Blue/Green deployment}
+
+How to implement Blue/Green env in Kubernetes?
+
+How do you manage the ingress controller in our aks cluster? {explain Application Gateway Ingress Controller}
+
+
+If you have an application deployed in kubernetes, how would you expose that particular app to the internet? And what services would you use?
+
+Can you explain what daemonset is?
+
+What kind of monitoring systems have you worked on?
+If you deploy an application on a linux server and after sometime you see that application crashed and the error is too many files are open…how would you fix that? (ans is file descriptors…..read more on this)
+
+What does free command do? And what is the difference between free and available memory?
+
+What is the command to restart an application in linux? (use systemctl to restart)
+
+How to list only the running pods in k8s?
+
+Know how to deploy websites/applications in IIS?
+
+How will you encrypt traffic on the IIS server?
+
+What is an application pool in IIS?
+
+Terraform version currently using—
+
+What are resources and modules in terraform?
+
+Can you use modules without resources?
+
+If you have lost your terraform state file, how will you get that back/regenerate?
+
+How to populate the newly created state file with the deployed cloud resources?
+
+If you have a bash script of 10000 lines and you want to execute till the 100th line, how would you do that so that after the 100th line execution stops.? (use “exit” command inside the script to stop the execution)
