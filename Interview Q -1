@@ -1,0 +1,354 @@
+What are the application types you have worked on azure?
+mainly on .Net projects and C# language
+
+What source control do you use?
+We mainly use azure Repo and also github
+
+Difference between git fork and git clone?
+git fork creates a completely independant copy of git repo where you can do changes which wont affect the remote repo but git clone creates a linked copy that will continue to sync with the target repo.
+
+Can you explain the Azure Pipeline in detail?
+Az boards, az repo, az pipeline, az artifact
+
+What is the command to fetch the pods in k8s?
+kubectl get pods
+
+What is the command to get inside the pod?
+kubectl exec pod <pod_name>
+
+What branching strategies do you follow in the organization? /(READ)
+>>> we have a long running master branch that we use for software release in production. And parallel with that we have another long running branch called develop branch. All features branches start from here and will eventually be merged with develop again. Also it’s the starting point of new release, developers open new release branch, work on it and test it. Once everything works out and ready for production, we merge back that into master branch. There is also a hotfix branch for fixing production bugs. And once that bugfix is done, it gets merged back into main.
+
+Set up a branch policy for your main branch that:
+●	Requires a pull request to merge code. This approach prevents direct pushes to the main branch and ensures discussion of proposed changes.
+●	Automatically adds reviewers when a pull request is created. The added team members review the code and comment on the changes in the pull request.
+●	Requires a successful build to complete a pull request. Code merged into the main branch should be built cleanly.
+Create a release branch from the main branch when you get close to your release or other milestone, such as the end of a sprint. Give this branch a clear name associating it with the release, for example release/20
+Use cherry-picking instead of merging so that you have exact control over which commits are ported back to the main branch.
+
+
+
+What are all the branches you have in your repo?
+look above
+
+azure board structure of your org?
+1. Epic
+2. Feature
+3. User Stories/Bug/Issue
+4. Tasks
+
+What is the sprint planning you have in your organization?
+We have several backlogs in azure to prioritize the tasks and works that we have to complete. So in backlogs, we can assign some tasks to a particular sprint, and other tasks to the next sprint and so on.. and this is done on priority basis urgent backlogs are placed in current sprints.
+
+Which ticketing tool do you use in your organization?
+BMC remedy
+
+Name the services that are available within azure.
+
+Are you familiar with agile processes?
+Yes
+●	Individuals and interactions over processes and tools
+●	Working software over comprehensive documentation
+●	Customer collaboration over contract negotiation
+●	Responding to change over following a plan
+
+
+Do you have a code review process and test process in the pipeline?
+Yes, for code review we use NUnit and for Code Coverage we use Coverlet and for ui testing we use selenium and Apache JMeter for stress testing, load testing and performance testing.
+
+Know more about OWASP and how to use it in the pipeline? (*)
+
+
+In coding and pipeline what are the security measures you are using?  (*)
+
+Know about prometheus and grafana?
+>we have used Helm charts to install prometheus in our k8s cluster. For some DB that we have in our k8s we have used exporter to expose their metrics to prometheus so that we can visualize the metrics that are coming out of those applications and also we can see that in grafana.
+
+
+How do you check for vulnerabilities in the code? (*)
+
+How will you secure the devops process? (*)
+
+Are you using any authentication module in azure devops? (*)
+
+how you can use azure ad for authentication/authorisation in devops? (*)
+
+What are the features available in the pipeline like scheduling?
+> we can use condition() in az pipeline to conditionally run/skip if the previous job fails or/succeed
+>we can create and use different environments for dev, test, staging. We can target a specific environment from the deployment job
+> we can secure the pipeline by using approvals, access control and  user permissions.
+> we can define parameters in deployment yaml to use the described parameters in runtime.
+> we can define deployment template to reuse parameters, logics and contents while writing pipeline.yml
+
+Are you familiar with github actions and git flow?
+
+
+tell me some git command that you use in daily basis
+> git pull
+Git push
+Git status
+Git log
+Git checkout
+Git revert <commit hash>
+Git commit
+Git merge
+Git stash
+Git pop
+Git init > initialize empty repo
+
+
+what is git pull?
+
+what is git push ?
+
+what monitoring tools are you using?
+
+explain what is CICD?
+
+how you are integrating codes from repo to pipeline/ how you are doing automation on that/ how to trigger?
+
+how to schedule build pipelines to run code at a particular time?
+
+Tell me the process of how an ingress controller works and routes traffic to the backend services?
+
+What is default backend, resource backend, root service in k8s ingress?
+
+how to delete the pods?
+
+What is svc/service in k8s?
+
+Why use an ingress controller instead of using service?
+
+What is volume in k8s?
+
+What is the difference between image and container?
+
+Where do you store your state files of terraform?
+
+What is terraform state locking?
+
+If you move a state file from local to cloud, what are the changes you have to do in your main.tf file?
+
+What is a terraform workspace?
+
+What is node affinity in k8s?
+
+can a pod have only one or multiple containers inside? what is the ideal condition?
+
+how to attach pods with the service in k8s??
+
+What are imperative and declarative ways of creating pods in k8s?
+
+what are the limitations in microsoft hosted agents compared to self hosted agents?
+>Microsoft-hosted agents have a few limitations, which include:
+●	Build duration: A build job can run for up to six hours.
+●	Disk space: Hosted agents provide a fixed amount of storage for your sources and your build outputs. This may not be enough storage.
+●	CPU, memory, and network: Hosted agents run on Microsoft Azure general purpose VMs. Standard_DS2_v2 describes the CPU, memory, and network characteristics you can expect.
+●	Interactivity: You can't sign in to a hosted agent.
+
+Creating self hosted build agents>>>>
+1. Create a virtual machine in azure as per the requirements.
+2. After that go to project settings>under pipeline, agent pool>add pool>create self hosted pool
+3. Create a personal access token.
+4. Connect with vm and install build tools on it.
+5. Install agent software on it and provide personal token in it.
+6. Verify the agent is running by going to your agent pool
+7. You can see all your demand specific software in the capabilities tab.
+
+What are deployment gates?
+Gates allow automatic collection of health signals from external services, and then promote the release when all the signals are successful at the same time or stop the deployment on timeout. Typically, gates are used in connection with incident management, problem management, change management, monitoring, and external approval systems.
+
+In our organization we track bugs or other work items before deploying apps to prod . until that particular item is resolved/closed, the pipeline stays paused and after set time it expires.
+
+
+any system variables that are there in the azure pipeline?
+
+●	$(Build.DefinitionName)
+●	$(Build.BuildId)
+●	$(Build.BuildNumber)
+●	Pipeline.Workspace
+●	$(Build.SourcesDirectory)
+
+
+What are templates in az devops?
+>>Use templates to define your logic once and then reuse it several times. Templates combine the content of multiple YAML files into a single pipeline.
+
+We use NUnit to unit test the code in the pipeline, after the build process.
+Then we create the code coverage report using coverlet and we process that report xml file using Cobertura.
+After that we publish that code coverage report in the pipeline.
+Then we publish the artifact.
+After the artifact has been published we use OWASP ZAP to scan the containers and when the scan report is compatible with organization standard, we will proceed further for deployment.
+
+How to schedule build/Release pipelines<<
+>>Use the following block
+
+schedules:
+- cron: '0 3 * * *'
+  displayName: 'Deploy every day at 3 A.M.'
+  branches:
+    include:
+    - release
+  always: false 
+
+And then use conditions like if this schedule matches , run the pipeline.
+
+**** we use this path ($(Build.SourcesDirectory)/manifests) to copy all our manifests files such as k8s deployment files, terraform files, dockerfile.
+
+Sonarqube
+
+1.	Setup sonarqube vm in your azure environment. Most preferably sonarqube will run inside docker container in a vm
+2.	Open sonarqube ui dashboard using the public address
+3.	In sonarqube go to administration >> ALM integrations >> create a config with azure devops project details and provide azure devops personal access token.
+4.	Connection is done with azure devops and sonarqube
+5.	Select the repository by using personal access token in sonarqube
+6.	Select through azure pipeline.
+7.	Install sonarqube extension from marketplace
+8.	Add sonarqube service connection
+
+
+What is the difference between service connection and service principal?
+> SP>>An Azure service principal is an identity created for use with applications, hosted services, and automated tools to access Azure resources. This access is restricted by the roles assigned to the service principal, giving you control over which resources can be accessed and at which level
+SC>> service connection is made in the application or automation tool by using the secrets and credentials of the service principal that is inside az environment. 
+
+
+What is the difference between Agile and Devops Methodology?
+>Agile emphasizes collaboration between developers and product management — DevOps includes the operations team
+●	Agile centers the flow of software from ideation to code completion — DevOps extends the focus to delivery and maintenance
+●	Agile emphasizes iterative development and small batches — DevOps focuses more on test and delivery automation 
+●	Agile adds structure to planned work for developers — DevOps incorporates unplanned work common to operations teams
+
+
+When to use pipeline variables and when to use variable groups?
+>Variable groups store values and secrets that you might want to be passed into a YAML pipeline or make available across multiple pipelines. You can share and use variables groups in multiple pipelines in the same project.
+
+>Pipeline variables are limited to the current pipeline.
+
+What is the difference between pipelines and releases?
+>It can be said that Pipeline(or Build, or Build Pipeline) represents CI (continuous integration) in Azure DevOps. Release represents CD(continuous delivery) in Azure DevOps. Pipeline usually takes code, builds it, tests and creates an artifact. Release takes the artifact and releases/deploys it.
+
+But if you prefer yaml pipeline, you can use multistage pipeline.
+
+What is the use of task groups?
+>A task group allows you to encapsulate a sequence of tasks, already defined in a build or a release pipeline, into a single reusable task that can be added to a build or release pipeline, just like any other task.
+
+
+What is the use of tags in azure devops and repo branches?
+>A ref pointing to a tag or commit object. In contrast to a head, a tag is not changed by a commit[...]. A tag is most typically used to mark a particular point in the commit chain.
+>A “branch” is an active line of development. The most recent commit on a branch is referred to as the tip of that branch. The tip of the branch is referenced by a branch head, which moves forward as additional development is done on the branch.
+
+
+What is the use of build version and difference of build version with tags?
+>build version denotes a particular published build and tag alway point to particular commit in commit history.
+
+When to use a self hosted agent instead of a microsoft hosted agent?
+
+If we want to deploy a particular resource in a private network, what kind of build agents we have to use, MS hosted or self hosted?
+>we can use both but there are some limitation in MS hosted agent, in self hosted agent we have full flexibility .
+
+What are the different types of cloud deployment models available?
+>Public cloud, Private Cloud, Hybrid Cloud.
+
+What are the resources you need to deploy an Azure Function App in a private cluster using terraform?
+>
+
+If you want to send logs from a subscription to a different subscription, what paas service do we need to use?
+
+If we need to set up azure functions in an isolated environment, what paas service do you need to use?
+
+What is the use of app service environments?
+
+There is a storage account which has been created on a private network,some other applications are trying to access that, to do that what azure settings you need to do so that the other team can access to the files/folders whatever are there inside the storage account.
+(without sharing SAS token)
+
+What are the types of storage available in azure? And what is the difference between those four?
+What logging and monitoring tools do you use in your company?
+
+For quality gates, what have you configured in your organization?
+
+How to show what are all the running services in azure to some guest user without giving him entire subscription access, how will you do that?
+
+What is the use of Azure AD Privileged Identity Management?
+
+What is the difference between azure devops and github actions?
+
+Who has access to the pipelines?
+
+In which resources are you deploying the code?
+
+How will you authenticate azure using github actions?
+
+What is git rehydrate?
+
+What are resources you have deployed in terraform?
+
+How to update changes that have happened in a cloud without terraform knowledge?
+
+How to pull a large repo in git?
+> git clone <repo_url> –depth 1
+
+How to move a particular commit from branch A to branch B ?
+> git cherry-pick <commit-hash>
+Git checkout <target branch>
+Git cherry-pick <commit hash>
+
+What is the difference between git merge and git fetch ?
+> git fetch > fetches files from remote repo and create a new branch for that. But does not merge
+Git merge> merges changes with the current branch.
+
+How to debug shell script file line by line ?
+> <./example.sh> -x   (important to use -x argument for debugging line by line)
+
+How can I know if the last linux command executed successfully or not?
+> echo $? (if 0 comes in result, it was successful, non zero means it failed)
+
+Which build tools are you working on ?
+> . net Build tools.
+
+How do we pass the runtime parameters in azure devops pipeline?
+> 
+parameters:
+- name: image
+  displayName: Pool Image
+  type: string
+  default: ubuntu-latest
+  values:
+  - windows-latest
+  - ubuntu-latest
+
+jobs:
+- job: build
+  displayName: build
+  pool: 
+    vmImage: ${{ parameters.image }}
+  steps:
+  - script: echo building $(Build.BuildNumber) with ${{ parameters.image }}
+
+How do we call the parameters in the build pipeline?
+> see above
+
+Have you used conditions in the yaml file?
+> condition: 
+
+I have stage A, it will always run, stage B will run only if stage A fails, stage C will run only if stage A succeeded ? how to use conditions?
+>
+
+What is dependson in azure pipeline?
+> dependsOn depends on the previous stage, so when that is finished only then the next stage will start.
+
+Tell me about the k8s architecture in your organization? 
+>
+
+If you provision a sql server using terraform in the Azure build pipeline, after that the server has been provisioned, how will you output that server name to the build pipeline and use it later in the pipeline process.?
+> by running output command TerraformTask@V3 in the pipeline and fetching the resource name and storing it in its pipeline variable.
+
+What are provisioners in terraform??
+
+File provisioner >> use local files to use inside of terraform script.
+
+Local-Exec provisioner>> use local shell to run scripts and use those in the terraform script.
+
+Remote-Exec provisioner >> use remote-exec to run remote shell commands to the resource that has been deployed in the cloud and perform operation in those.
+
+The terraform taint command informs Terraform that a particular object has become degraded or damaged. Terraform represents this by marking the object as "tainted" in the Terraform state, and Terraform will propose to replace it in the next plan you create.
+
+
